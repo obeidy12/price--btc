@@ -1,0 +1,24 @@
+import requests
+
+# Replace YOUR_API_KEY with your Cryptocompare API key
+API_KEY = 'YOUR_API_KEY'
+
+# List of currencies to retrieve prices for
+currencies = ['BTC', 'ETH', 'LTC', 'XRP']
+
+# API endpoint for retrieving prices
+url = f'https://min-api.cryptocompare.com/data/pricemulti?fsyms={",".join(currencies)}&tsyms=USD&api_key={API_KEY}'
+
+# Send GET request to the API endpoint
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the JSON response
+    prices = response.json()
+    
+    # Display prices in the console
+    for currency, value in prices.items():
+        print(f'{currency}: {value["USD"]}')
+else:
+    print('Failed to retrieve prices')
